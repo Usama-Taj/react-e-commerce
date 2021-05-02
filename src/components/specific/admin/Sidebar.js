@@ -6,47 +6,23 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import ViewModuleIcon from "@material-ui/icons/ViewModule";
-import HelpIcon from "@material-ui/icons/Help";
 import { NavLink } from "react-router-dom";
 import { Hidden } from "@material-ui/core";
+import dashboardRoutes from "../../../routes/admin/dashboard";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.navItems = [
-      {
-        icon: <DashboardIcon />,
-        route: "/",
-        text: "Dashboard",
-      },
-      {
-        icon: <PeopleIcon />,
-        route: "/customers",
-        text: "Customers",
-      },
-      {
-        icon: <ViewModuleIcon />,
-        route: "/products",
-        text: "Products",
-      },
-      {
-        icon: <HelpIcon />,
-        route: "/help",
-        text: "Help",
-      },
-    ];
+    this.routes = dashboardRoutes();
     this.drawer = (
       <div>
         <List>
-          {this.navItems.map((item, index) => {
+          {this.routes.map((item, index) => {
             return (
               <NavLink
                 exact
-                to={item.route}
+                to={item.path}
                 className="custom-nav-item"
                 activeStyle={{
                   borderLeft: "5px solid #3f51b5",
@@ -56,7 +32,7 @@ class Sidebar extends Component {
                 <ListItem button>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText
-                    primary={item.text}
+                    primary={item.name}
                     className="custom-nav-text"
                   />
                 </ListItem>

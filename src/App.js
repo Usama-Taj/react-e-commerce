@@ -1,17 +1,23 @@
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./pages/admin/Login";
-import adminRoutes from "./routes/admin";
+import loginRoutes from "./routes/admin/login";
 const App = () => {
-  const routes = adminRoutes();
+  const routes = loginRoutes();
 
   return (
-    <Router>
-      <Switch>
-        {routes.map(({ path, component }, index) => {
-          return <Route exact key={index} path={path} component={component} />;
-        })}
-      </Switch>
-    </Router>
+    <div>
+      <React.StrictMode>
+        <Router>
+          <Switch>
+            {routes.map(({ path, component }, index) => {
+              return (
+                <Route key={index} path={path} exact component={component} />
+              );
+            })}
+          </Switch>
+        </Router>
+      </React.StrictMode>
+    </div>
   );
 };
 
