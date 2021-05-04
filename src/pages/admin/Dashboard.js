@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Header from "../../components/specific/admin/Header";
 import Sidebar from "../../components/specific/admin/Sidebar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import dashboardRoutes from "../../routes/admin/dashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import adminRoutes from "../../routes/admin/adminRoutes";
 const useStyles = makeStyles((theme) => ({
   content: {
     [theme.breakpoints.up("sm")]: {
@@ -18,7 +18,7 @@ const Dashboard = () => {
   const onDisplay = (display) => {
     setDisplayed(display);
   };
-  const routes = dashboardRoutes();
+  const routes = adminRoutes();
   const classes = useStyles();
   const removeDrawer = () => {
     setDisplayed(false);
@@ -32,7 +32,12 @@ const Dashboard = () => {
           <Switch>
             {routes.map((route, index) => {
               return (
-                <Route exact path={route.path} component={route.component} />
+                <Route
+                  key={index}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
               );
             })}
           </Switch>

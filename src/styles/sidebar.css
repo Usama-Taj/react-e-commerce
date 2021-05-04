@@ -2,13 +2,14 @@
   text-decoration: none !important;
   color: black !important;
   display: flex !important;
+  flex-direction: column;
   width: 240px;
 }
 .custom-nav-text {
   margin-top: 2px !important;
 }
 
-.custom-nav-item:hover {
+/* .custom-nav-item:hover {
   background-color: #04b8a9;
   color: white !important;
-}
+} */

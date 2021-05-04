@@ -1,25 +1,32 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../styles/sidebar.css";
-import { Component } from "react";
+import useState from "react";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
-import { Hidden } from "@material-ui/core";
-import dashboardRoutes from "../../../routes/admin/dashboard";
+import Hidden from "@material-ui/core/Hidden";
+import adminRoutes from "../../../routes/admin/adminRoutes";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import NestedList from "./NestedList";
 
-class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.routes = dashboardRoutes();
-    this.drawer = (
-      <div>
-        <List>
-          {this.routes.map((item, index) => {
-            return (
+const Sidebar = (props) => {
+  const routes = adminRoutes();
+  const closeDrawer = () => {
+    props.closeDrawer(false);
+  };
+  const handleClick = (e) => {
+    setOpen(!open);
+  };
+  const [open, setOpen] = useState(false);
+  const drawer = (
+    <div>
+      <List>
+        {routes.map((item, index) => {
+          return (
+            item.pagename === "dashboard" && (
               <NavLink
                 exact
                 to={item.path}
@@ -29,43 +36,37 @@ class Sidebar extends Component {
                 }}
                 key={index}
               >
-                <ListItem button>
+                <ListItem button onClick={item.nested && handleClick}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText
                     primary={item.name}
                     className="custom-nav-text"
                   />
+                  {item.nested ? open ? <ExpandLess /> : <ExpandMore /> : null}
                 </ListItem>
+                <NestedList open={open}>{item.nested}</NestedList>
               </NavLink>
-            );
-          })}
-        </List>
-      </div>
-    );
-  }
-  closeDrawer = () => {
-    this.props.closeDrawer(false);
-  };
-  render() {
-    return (
-      <nav>
-        <Hidden smUp>
-          <Drawer
-            variant="temporary"
-            open={this.props.display}
-            onClick={this.closeDrawer}
-          >
-            {this.drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown>
-          <Drawer variant="permanent" open>
-            {this.drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-    );
-  }
-}
+            )
+          );
+        })}
+      </List>
+    </div>
+  );
+
+  return (
+    <nav>
+      <Hidden smUp>
+        <Drawer variant="temporary" open={props.display} onClick={closeDrawer}>
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown>
+        <Drawer variant="permanent" open>
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </nav>
+  );
+};
 
 export default Sidebar;
