@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../styles/sidebar.css";
-import useState from "react";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,19 +7,20 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { NavLink } from "react-router-dom";
 import Hidden from "@material-ui/core/Hidden";
-import adminRoutes from "../../../routes/admin/adminRoutes";
+import dashboardRoutes from "../../../routes/admin/dashboardRoutes";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import NestedList from "./NestedList";
+import { useState } from "react";
 
 const Sidebar = (props) => {
-  const routes = adminRoutes();
+  const routes = dashboardRoutes();
+  const [open, setOpen] = useState(false);
   const closeDrawer = () => {
     props.closeDrawer(false);
   };
   const handleClick = (e) => {
     setOpen(!open);
   };
-  const [open, setOpen] = useState(false);
   const drawer = (
     <div>
       <List>

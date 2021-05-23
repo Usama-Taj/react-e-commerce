@@ -3,7 +3,7 @@ import Header from "../../components/specific/admin/Header";
 import Sidebar from "../../components/specific/admin/Sidebar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import adminRoutes from "../../routes/admin/adminRoutes";
+import dashboardRoutes from "../../routes/admin/dashboardRoutes";
 const useStyles = makeStyles((theme) => ({
   content: {
     [theme.breakpoints.up("sm")]: {
@@ -18,7 +18,7 @@ const Dashboard = () => {
   const onDisplay = (display) => {
     setDisplayed(display);
   };
-  const routes = adminRoutes();
+  const routes = dashboardRoutes();
   const classes = useStyles();
   const removeDrawer = () => {
     setDisplayed(false);

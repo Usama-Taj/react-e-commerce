@@ -7,9 +7,7 @@ const NestedList = (props) => {
       <List component="div" disablePadding>
         {props.children &&
           props.children.map((nestedItem, index) => {
-            return (
-              <NestedListItem key={index}>{nestedItem.name}</NestedListItem>
-            );
+            return <NestedListItem key={index}>{nestedItem}</NestedListItem>;
           })}
       </List>
     </Collapse>

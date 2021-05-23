@@ -4,7 +4,7 @@ import {
   ListItemText,
   makeStyles,
 } from "@material-ui/core";
-import { StarBorder } from "@material-ui/icons";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   nested: {
@@ -14,12 +14,19 @@ const useStyles = makeStyles((theme) => ({
 const NestedListItem = (props) => {
   const classes = useStyles();
   return (
-    <ListItem button className={classes.nested}>
-      <ListItemIcon>
-        <StarBorder />
-      </ListItemIcon>
-      <ListItemText primary={props.children} />
-    </ListItem>
+    <NavLink
+      exact
+      to={props.children.path}
+      className="custom-nav-item"
+      activeStyle={{
+        borderLeft: "5px solid #3f51b5",
+      }}
+    >
+      <ListItem button className={classes.nested}>
+        <ListItemIcon>{props.children.icon}</ListItemIcon>
+        <ListItemText primary={props.children.name} />
+      </ListItem>
+    </NavLink>
   );
 };
 
